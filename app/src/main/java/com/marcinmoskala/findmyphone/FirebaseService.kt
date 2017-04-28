@@ -9,7 +9,7 @@ import com.google.firebase.iid.FirebaseInstanceIdService
 class FirebaseService : FirebaseInstanceIdService() {
 
     override fun onTokenRefresh() {
-        val refreshedToken = FirebaseInstanceId.getInstance().token
-//        sendRegistrationToServer(refreshedToken);
+        val refreshedToken = FirebaseInstanceId.getInstance().token ?: return
+        saveToken(refreshedToken)
     }
 }
