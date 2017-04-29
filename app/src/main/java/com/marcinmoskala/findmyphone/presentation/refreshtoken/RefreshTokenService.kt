@@ -1,12 +1,10 @@
-package com.marcinmoskala.findmyphone
+package com.marcinmoskala.findmyphone.presentation.refreshtoken
 
-import android.content.Intent
-import android.os.IBinder
-import android.util.Log
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.iid.FirebaseInstanceIdService
+import com.marcinmoskala.findmyphone.saveToken
 
-class FirebaseService : FirebaseInstanceIdService() {
+class RefreshTokenService : FirebaseInstanceIdService() {
 
     override fun onTokenRefresh() {
         val refreshedToken = FirebaseInstanceId.getInstance().token ?: return

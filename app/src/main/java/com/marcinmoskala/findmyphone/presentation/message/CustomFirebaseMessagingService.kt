@@ -1,4 +1,4 @@
-package com.marcinmoskala.findmyphone
+package com.marcinmoskala.findmyphone.presentation.message
 
 import android.content.ContentValues.TAG
 import android.util.Log
