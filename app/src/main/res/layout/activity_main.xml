@@ -31,18 +31,18 @@
             tools:text="Marcin Moskala" />
 
         <Button
-            android:id="@+id/testServiceButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="Test phone finding" />
-
-        <Button
             android:id="@+id/goToWebsideButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="Go to website" />
+
+        <Button
+            android:id="@+id/testButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Test Alarm" />
 
         <Button
             android:id="@+id/logOutButton"

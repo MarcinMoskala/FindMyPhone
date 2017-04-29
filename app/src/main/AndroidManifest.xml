@@ -18,6 +18,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".presentation.alarm.AlarmActivity"/>
+
         <service
             android:name=".presentation.refreshtoken.RefreshTokenService">
             <intent-filter>

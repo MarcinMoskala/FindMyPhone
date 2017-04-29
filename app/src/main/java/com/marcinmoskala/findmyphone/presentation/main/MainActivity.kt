@@ -1,10 +1,12 @@
 package com.marcinmoskala.findmyphone.presentation.main
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.marcinmoskala.findmyphone.R
+import com.marcinmoskala.findmyphone.presentation.alarm.AlarmActivityStarter
 import com.marcinmoskala.findmyphone.utills.isVisible
 import com.marcinmoskala.findmyphone.utills.loadImage
 import kotlinx.android.synthetic.main.activity_main.*
@@ -34,13 +36,16 @@ class MainActivity : AppCompatActivity() {
         logInButton.setOnClickListener {
             controller.login()
         }
+        testButton.setOnClickListener {
+            AlarmActivityStarter.start(this)
+        }
         logOutButton.setOnClickListener {
             controller.logOut {
                 loggedInPanelVisible = false
             }
         }
-        testServiceButton.setOnClickListener {
-
+        goToWebsideButton.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://findmyphone-29eb0.firebaseapp.com/")))
         }
     }
 
