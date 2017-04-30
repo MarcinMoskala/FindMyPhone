@@ -5,19 +5,16 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.auth.api.signin.GoogleSignInResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.marcinmoskala.findmyphone.R
 import com.marcinmoskala.findmyphone.saveUid
-import com.google.android.gms.auth.api.signin.GoogleSignInResult
-import com.google.android.gms.common.api.OptionalPendingResult
-
-
+import com.marcinmoskala.findmyphone.utills.toast
 
 
 class GoogleLoginController(
@@ -66,13 +63,10 @@ class GoogleLoginController(
         googleApiClient.registerConnectionCallbacks(object : GoogleApiClient.ConnectionCallbacks {
             override fun onConnected(bundle: Bundle?) {
                 FirebaseAuth.getInstance().signOut()
-                if (googleApiClient.isConnected) {
+                if (googleApiClient.isConnected)
                     Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback { status ->
-                        if (status.isSuccess) {
-                            callback()
-                        }
+                        if (status.isSuccess) callback()
                     }
-                }
             }
 
             override fun onConnectionSuspended(i: Int) {
@@ -106,7 +100,7 @@ class GoogleLoginController(
                 onLogged(acct)
                 saveUid(uid)
             } else {
-                Toast.makeText(activity, "Authentication failed.", Toast.LENGTH_SHORT).show()
+                activity.toast("Authentication failed.")
             }
         }
     }
