@@ -4,49 +4,45 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.widget.ImageView
 import android.widget.Toast
 import com.marcinmoskala.findmyphone.R
 import com.marcinmoskala.findmyphone.presentation.alarm.AlarmActivityStarter
-import com.marcinmoskala.findmyphone.utills.isVisible
 import com.marcinmoskala.findmyphone.utills.loadImage
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlin.properties.Delegates
+import com.marcinmoskala.kotlinandroidviewbindings.bindToClick
+import com.marcinmoskala.kotlinandroidviewbindings.bindToLoading
+import com.marcinmoskala.kotlinandroidviewbindings.bindToTextView
 
 class MainActivity : AppCompatActivity() {
+
+    var displayName by bindToTextView(R.id.nameView)
+    var loggedInPanelVisible: Boolean by bindToLoading(R.id.loggedPanel, R.id.loggedOutPanel)
+
+    var logInButtonClicked by bindToClick(R.id.logInButton)
+    var testButtonClicked by bindToClick(R.id.testButton)
+    var logOutButtonClicked by bindToClick(R.id.logOutButton)
+    var goToWebsideButtonClicked by bindToClick(R.id.goToWebsideButton)
 
     val controller: LoginController by lazy {
         GoogleLoginController(this, {
             loggedInPanelVisible = true
-            iconView.loadImage(it.photoUrl)
-            nameView.text = it.displayName
+            // Find a way to make smart binding on KotlinAndroidViewBinding
+            (findViewById(R.id.iconView) as ImageView).loadImage(it.photoUrl)
+            displayName = it.displayName ?: ""
         }, {
             Toast.makeText(this, "Login error", Toast.LENGTH_LONG).show()
         })
     }
 
-    var loggedInPanelVisible: Boolean by Delegates.observable(false) { _, _, n ->
-        loggedPanel.isVisible = n
-        loggedOutPanel.isVisible = !n
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         controller.onCreate()
-        logInButton.setOnClickListener {
-            controller.login()
-        }
-        testButton.setOnClickListener {
-            AlarmActivityStarter.start(this)
-        }
-        logOutButton.setOnClickListener {
-            controller.logOut {
-                loggedInPanelVisible = false
-            }
-        }
-        goToWebsideButton.setOnClickListener {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://findmyphone-29eb0.firebaseapp.com/")))
-        }
+        logInButtonClicked = { controller.login() }
+        testButtonClicked = { AlarmActivityStarter.start(this) }
+        logOutButtonClicked = { controller.logOut { loggedInPanelVisible = false } }
+        goToWebsideButtonClicked = { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://findmyphone.fun/"))) }
     }
 
     override fun onStart() {

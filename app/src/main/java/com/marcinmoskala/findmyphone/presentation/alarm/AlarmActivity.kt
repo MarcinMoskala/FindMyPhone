@@ -10,19 +10,21 @@ import android.view.WindowManager.LayoutParams.*
 import com.marcinmoskala.findmyphone.Pref
 import com.marcinmoskala.findmyphone.R
 import com.marcinmoskala.findmyphone.utills.audioManager
-import kotlinx.android.synthetic.main.activity_alarm.*
+import com.marcinmoskala.kotlinandroidviewbindings.bindToClick
 
 @MakeActivityStarter
 class AlarmActivity : Activity() {
 
     private val mediaPlayer by lazy { MediaPlayer() }
 
+    var dismissButtonClicked by bindToClick(R.id.dismissButton)
+
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_alarm)
         window.addFlags(FLAG_KEEP_SCREEN_ON or FLAG_DISMISS_KEYGUARD or FLAG_SHOW_WHEN_LOCKED or FLAG_TURN_SCREEN_ON)
         playRing()
-        dismissButton.setOnClickListener {
+        dismissButtonClicked = {
             stopRing()
             finish()
         }
