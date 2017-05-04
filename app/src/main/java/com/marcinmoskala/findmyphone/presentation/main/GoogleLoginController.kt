@@ -100,7 +100,7 @@ class GoogleLoginController(
                 onLogged(acct)
                 saveUid(uid)
             } else {
-                activity.toast("Authentication failed.")
+                onError(Error("Authentication failed."))
             }
         }
     }
