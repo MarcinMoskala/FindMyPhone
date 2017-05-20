@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
             iconView.loadImage(it.photoUrl)
             nameView.text = it.displayName
         }, {
+            it.printStackTrace()
             Toast.makeText(this, "Login error", Toast.LENGTH_LONG).show()
         })
     }
